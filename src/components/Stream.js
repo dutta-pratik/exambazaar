@@ -6,17 +6,17 @@ function Stream(props){
   console.log("stream props",props);
   const {streams, onStreamChange} = props;
   console.log("strem", streams);
-  console.log("handleExam", onStreamChange);
+  console.log("onStreamChange", onStreamChange);
   
 
   return (
     <div>
       {console.log("here", streams)}
-      <select onSelect={onStreamChange}>
+      <select onClick={onStreamChange}>
         {streams != null ?
-
-          streams.map((ele, key) => {
-            return <option key={ele._id} >{ele.name}</option>
+          
+          streams.map((ele) => {
+            return <option key={ele._id} value={ele._id} >{ele.name}</option>
           }) :
 
           <option>Loading</option>
