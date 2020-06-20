@@ -5,6 +5,17 @@
 .navbar{
   height: 50px;
   background-color: lightskyblue;
+  display: flex;
+}
+
+.logo{
+  height: 50px;
+  width: 50px;
+  margin-left: 5px;
+}
+
+.logo:focus{
+  outline: none;
 }
 
 .container{
@@ -34,36 +45,106 @@
   cursor: pointer;
   border-radius: 10%;
   outline: none;
+  font-weight: 600;
 }
 
 .btn-effect:hover{
-  background-color: white;
-  color: black;
+  
+  background-color: rgb(78, 148, 192);
+  color: white;
   outline: none;
 }
 
 .qstn-container{
   display: flex;
-  border: 1px solid red;
+  /* border: 1px solid red; */
   flex-direction: column;
+  height: 90vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
+
 
 .qstn-sectionname{
   height: 50px;
   width: 100%;
-  border: 1px solid green;
+  /* border: 1px solid green; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+  font-weight: 600;
 }
 
 .btns{
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
+  align-content: flex-end;
+  margin-top: 50px;
 }
 
 .qstn-content{
-  border: 1px solid yellow;
+  display: flex;
+  /* border: 1px solid yellow; */
+  max-width: 85%;
+  min-width: 80%;
+  margin: 10px auto;
+  flex-direction: column;
+  justify-items: center;
+}
+
+.line-break{
+  word-wrap: break-word;
+  text-align: left;
+}
+
+.qstn-point{
+  display: flex;
+  justify-content: flex-end;
+}
+
+.point-positive{
+  background-color: lightgreen;
+  margin: 5px;
+  padding: 7px;
+}
+
+.point-negative{
+  background-color: lightcoral;
+  margin: 5px;
+  padding: 7px;
+}
+
+.qtn-heading{
+  display: flex;
+  justify-content: flex-start;
+  font-weight: 700;
+  font-size: x-large;
+  color: rgb(72, 145, 190);
+  margin-bottom: 10px;
 }
 
 .qstn{
+  display: flex;
+  justify-content: flex-start;
+  line-height: 1.5rem;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  font-weight: 600;
+  font-size: larger;
+}
 
+.qstn-optns{
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  font-weight: 400;
+  font-size: large;
+}
+
+.qstn-optn{
+  display: flex;
+  justify-content: flex-start;
 }

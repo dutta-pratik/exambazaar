@@ -72,6 +72,7 @@ class App extends React.Component{
 
     return (
       <div className="App">
+        {console.log("here HOME")}
         <NavBar />
 
         <Router>
@@ -96,7 +97,7 @@ class App extends React.Component{
           </div>
           </Router>
         
-        <hr></hr>
+        
         
       </div>
     );

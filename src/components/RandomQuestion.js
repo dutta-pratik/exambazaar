@@ -8,7 +8,9 @@ class RandomQuestion extends React.Component{
         
         this.state = {
             examId: null,
-            previousQues: []
+            previousQues: [],
+            prev: false,
+            queAvailableinDB: false
         }
     }
 
@@ -31,10 +33,11 @@ class RandomQuestion extends React.Component{
         console.log("prevw", previousQues);
         await previousQues.push(jsonResponse.data);
         console.log("prev", previousQues);
-        if(jsonResponse.status == 200){
+        if(jsonResponse.status == 200 && !jsonResponse.data.message){
             await this.setState({
                 ...this.state,
-                previousQues
+                previousQues,
+                queAvailableinDB: true
             })
         }
         console.log("rq state", this.state);
@@ -55,15 +58,32 @@ class RandomQuestion extends React.Component{
         await this.fetchData();
     }
 
+    handlePrevious = async(e) => {
+        e.preventDefault();
+        const {previousQues} = await this.state;
+        console.log("before shift",previousQues.length);
+        await previousQues.pop();
+        await this.setState({
+            ...this.state,
+            previousQues,
+            prev: true
+        });
+        console.log("after shift",previousQues.length);
+        console.log("prev shift");
+        // this.render();
+    }
+
     render(){
         console.log("randomQuestion state",this.state);
-        const {previousQues} = this.state;
+        const {previousQues, prev, queAvailableinDB} = this.state;
+        const display = prev  ? "No Question Available" : "Fetching";
         console.log("qstn", previousQues[previousQues.length - 1]);
+        console.log("qstn len", previousQues.length - 1);
         // const {question} = previousQues[previousQues.length - 1];
         // console.log(question);
         return(
             
-            <div>
+            <div className="random-que-container">
 
                 {previousQues.length > 0 ? 
                     <div className="qstn-container">
@@ -71,29 +91,66 @@ class RandomQuestion extends React.Component{
                         {/* Section > Exam-name */}
                         {previousQues[previousQues.length - 1].question.exam} &nbsp; &#62; &nbsp;
                         {previousQues[previousQues.length - 1].question.test}
+                        
                         </div>
-
+                       
                         <div className="qstn-content">
+                            <div className="qstn-point">
+                                <span className="point-positive">
+                                    +{previousQues[previousQues.length - 1].question.questions[0].marking.correct}
+                                </span>
+                                <span className="point-negative">
+                                    {previousQues[previousQues.length - 1].question.questions[0].marking.incorrect}
+                                </span>
+                                
+                            </div>
+                            <div className="qtn-heading">
+                                Question:
+                            </div>
                             {previousQues[previousQues.length - 1].question.questions.map((ele) => {
                                 {console.log("ele",ele)}
                                 
                                 return <> 
-                                    <div className="qstn-point">
-                                        {ele.marking.correct}
-                                        {-1 * ele.marking.incorrect}
-                                    </div>
-                                    <div className="qstn">
+                                    
+                                    
+                                    <div className="qstn line-break">
                                     {/* Question */}
-                                        Question: {ele.question}
-                                    </div>
-                                    <div className="qstn-testname">
-                                        {/* testname */}
+                                         {ele.question}
                                     </div>
                                     <div className="qstn-img">
                                         {/* if img */}
+                                        {console.log("image", ele.images.length)}
+                                        {ele.images.length > 0 ? 
+                                            <>
+                                                <div>
+                                                    {ele.images.map((e)=>{
+                                                        return <>
+                                                                <img src={e} alt={e}/>
+                                                                </>
+                                                    })}
+                                                </div>
+                                            </> : 
+                                            <></>
+                                        }
                                     </div>
-                                    <div className="qstn-optns">
+                                    <div className="qstn-optns" >
                                         {/* Options */}
+                                        
+                                        {console.log("option", ele)}
+                                        {ele.mcqma ? 
+                                           <>{ele.options.map((e) => {
+                                                return <div className="qstn-optn" ><input type="checkbox" value={e.option} name="answer"/>
+                                                         &nbsp;{e.option}
+                                                        </div>
+                                                       
+                                            })}</> :
+                                            <>{ele.options.map((e) => {
+                                                return <div className="qstn-optn" ><input type="radio" value={e.option} name="answer"/>
+                                                            &nbsp;<div className="line-break">{e.option}</div>
+                                                        </div>
+                                                       
+                                            })}</>
+                                        }
                                     </div>
                                 </>
                                
@@ -103,7 +160,7 @@ class RandomQuestion extends React.Component{
                         <div className="btns">
                             {/* Buttons */}
                             <div className="prev-btn">
-                                <button className="btn-effect">Previous</button>
+                                <button className="btn-effect" onClick={this.handlePrevious}>Previous</button>
                             </div>
                             <div className="nxt-btn">
                                 <button className="btn-effect" onClick={this.handleNext}>Next</button>
@@ -111,7 +168,8 @@ class RandomQuestion extends React.Component{
                         </div> 
                     </div> :
 
-                    <h1>Fetching</h1>
+                    // <h1>{queAvailableinDB ? display : "No available question for the selected exams"}</h1>
+                    <h1>{display}</h1>
                 }
 
             </div>
