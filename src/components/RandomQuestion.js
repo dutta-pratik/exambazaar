@@ -50,6 +50,11 @@ class RandomQuestion extends React.Component{
         await this.fetchData();
     }
 
+    handleNext = async(e) => {
+        e.preventDefault();
+        await this.fetchData();
+    }
+
     render(){
         console.log("randomQuestion state",this.state);
         const {previousQues} = this.state;
@@ -64,22 +69,36 @@ class RandomQuestion extends React.Component{
                     <div className="qstn-container">
                         <div className="qstn-sectionname">
                         {/* Section > Exam-name */}
-                        {previousQues[previousQues.length - 1].question.exam} &nbsp; > &nbsp;
+                        {previousQues[previousQues.length - 1].question.exam} &nbsp; &#62; &nbsp;
                         {previousQues[previousQues.length - 1].question.test}
                         </div>
+
                         <div className="qstn-content">
-                            <div className="qstn">
-                                {/* Question */}
-                            </div>
-                            <div className="qstn-testname">
-                                {/* testname */}
-                            </div>
-                            <div className="qstn-img">
-                                {/* if img */}
-                            </div>
-                            <div className="qstn-optns">
-                                {/* Options */}
-                            </div>
+                            {previousQues[previousQues.length - 1].question.questions.map((ele) => {
+                                {console.log("ele",ele)}
+                                
+                                return <> 
+                                    <div className="qstn-point">
+                                        {ele.marking.correct}
+                                        {-1 * ele.marking.incorrect}
+                                    </div>
+                                    <div className="qstn">
+                                    {/* Question */}
+                                        Question: {ele.question}
+                                    </div>
+                                    <div className="qstn-testname">
+                                        {/* testname */}
+                                    </div>
+                                    <div className="qstn-img">
+                                        {/* if img */}
+                                    </div>
+                                    <div className="qstn-optns">
+                                        {/* Options */}
+                                    </div>
+                                </>
+                               
+                            })}
+                            
                         </div>
                         <div className="btns">
                             {/* Buttons */}
@@ -87,7 +106,7 @@ class RandomQuestion extends React.Component{
                                 <button className="btn-effect">Previous</button>
                             </div>
                             <div className="nxt-btn">
-                                <button className="btn-effect">Next</button>
+                                <button className="btn-effect" onClick={this.handleNext}>Next</button>
                             </div>
                         </div> 
                     </div> :

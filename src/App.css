@@ -33,11 +33,13 @@
   border: 1px solid rgb(120, 167, 196);
   cursor: pointer;
   border-radius: 10%;
+  outline: none;
 }
 
 .btn-effect:hover{
   background-color: white;
   color: black;
+  outline: none;
 }
 
 .qstn-container{
