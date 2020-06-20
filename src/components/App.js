@@ -89,9 +89,10 @@ class App extends React.Component{
               <button className="submit-btn">Get Questions</button>
             </Link> */}
             
-            <Route path="/random/:examId" render={() => {
-              return <RandomQuestion />
-            }} />
+            {/* <Route path="/random/:examId" render={() => {
+              return <RandomQuestion examId={selectedExam}/>
+            }} /> */}
+            <Route path="/random/:examId" component={RandomQuestion} />
           </div>
           </Router>
         

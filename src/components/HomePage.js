@@ -18,7 +18,7 @@ const HomePage = (props) => {
             <h4>Please Select Stream to see the relevent exams</h4> 
             }
             <Link to={`/random/${selectedExam}`}>
-              <button className="submit-btn">Get Questions</button>
+              <button className="submit-btn btn-effect">Get Questions</button>
             </Link>
         </div>
     );

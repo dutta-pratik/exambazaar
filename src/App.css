@@ -22,13 +22,46 @@
 .submit-btn{
   margin-top: 20px;
   height: 30px;
-  color: rgb(120, 167, 196);
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-effect{
+  height: 35px;
+  width: 80px;
+  transition: all 0.3s ease-in-out;
+  color: rgb(78, 148, 192);
   border: 1px solid rgb(120, 167, 196);
   cursor: pointer;
-  transition: all 0.3s ease-in-out;
+  border-radius: 10%;
 }
 
 .btn-effect:hover{
   background-color: white;
   color: black;
+}
+
+.qstn-container{
+  display: flex;
+  border: 1px solid red;
+  flex-direction: column;
+}
+
+.qstn-sectionname{
+  height: 50px;
+  width: 100%;
+  border: 1px solid green;
+}
+
+.btns{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.qstn-content{
+  border: 1px solid yellow;
+}
+
+.qstn{
+
 }
