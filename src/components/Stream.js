@@ -1,6 +1,6 @@
 
 import React from 'react';
-
+import "../App.css";
 
 function Stream(props){
   console.log("stream props",props);
@@ -10,8 +10,9 @@ function Stream(props){
   
 
   return (
-    <div>
+    <div className="stream" >
       {console.log("here", streams)}
+      Stream: &nbsp;
       <select onClick={onStreamChange}>
         {streams != null ?
           

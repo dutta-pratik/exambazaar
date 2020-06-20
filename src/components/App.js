@@ -1,9 +1,13 @@
 import React from 'react';
 import '../App.css';
+import {BrowserRouter as Router, Link, Route} from "react-router-dom";
 
 import apiData from "../api_info/api";
 import Stream from "./Stream";
 import Exam from "./Exam"
+import NavBar from "./NavBar";
+import RandomQuestion from "./RandomQuestion";
+import HomePage from "./HomePage";
 
 class App extends React.Component{
   constructor(){
@@ -68,13 +72,31 @@ class App extends React.Component{
 
     return (
       <div className="App">
+        <NavBar />
 
-        <Stream streams={stream} onStreamChange={this.handleStream}/>
-        {selectedStream != null ?
-          <Exam exams={exam} onExamChange={this.handleExam}/> :
-          <h4>Please Select Stream to see the relevent exams</h4> 
-        }
-
+        <Router>
+          <div className="container">
+            {/* <Stream streams={stream} onStreamChange={this.handleStream}/>
+              {selectedStream != null ?
+                <Exam exams={exam} onExamChange={this.handleExam}/> :
+                <h4>Please Select Stream to see the relevent exams</h4> 
+              } */}
+            <Route exact={true} path="/" render={() => {
+              return <HomePage selectedExam={selectedExam} stream={stream} handleStream={this.handleStream} selectedStream={selectedStream} exam={exam} handleExam={this.handleExam}/>
+            }}/>
+          
+            {/* <Link to={`/random/${selectedExam}`}>
+              <button className="submit-btn">Get Questions</button>
+            </Link> */}
+            
+            <Route path="/random/:examId" render={() => {
+              return <RandomQuestion />
+            }} />
+          </div>
+          </Router>
+        
+        <hr></hr>
+        
       </div>
     );
   }
