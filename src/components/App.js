@@ -3,8 +3,6 @@ import React from 'react';
 import {BrowserRouter as Router, Link, Route} from "react-router-dom";
 import '../App.css';
 import apiData from "../api_info/api";
-import Stream from "./Stream";
-import Exam from "./Exam"
 import NavBar from "./NavBar";
 import RandomQuestion from "./RandomQuestion";
 import HomePage from "./HomePage";
