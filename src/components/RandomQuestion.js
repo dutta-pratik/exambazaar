@@ -2,6 +2,7 @@ import React from "react";
 import "../App.css";
 import apiData from "../api_info/api";
 
+
 class RandomQuestion extends React.Component{
     constructor(){
         super();
@@ -26,13 +27,9 @@ class RandomQuestion extends React.Component{
                 examId: `${examId}`
             })
         }  
-        console.log("options", options);
         const response = await fetch(url, options);
         const jsonResponse = await response.json();
-        console.log("json RQ",jsonResponse);
-        console.log("prevw", previousQues);
         await previousQues.push(jsonResponse.data);
-        console.log("prev", previousQues);
         if(jsonResponse.status == 200 && !jsonResponse.data.message){
             await this.setState({
                 ...this.state,
@@ -40,12 +37,10 @@ class RandomQuestion extends React.Component{
                 queAvailableinDB: true
             })
         }
-        console.log("rq state", this.state);
     }
 
     async componentDidMount(){
         const { match: { params } } = await this.props;
-        console.log("CM",this.props, "as", params);
         await this.setState({
             ...this.state,
             examId: params.examId
@@ -61,101 +56,125 @@ class RandomQuestion extends React.Component{
     handlePrevious = async(e) => {
         e.preventDefault();
         const {previousQues} = await this.state;
-        console.log("before shift",previousQues.length);
         await previousQues.pop();
         await this.setState({
             ...this.state,
             previousQues,
             prev: true
         });
-        console.log("after shift",previousQues.length);
-        console.log("prev shift");
-        // this.render();
     }
 
     render(){
-        console.log("randomQuestion state",this.state);
         const {previousQues, prev, queAvailableinDB} = this.state;
         const display = prev  ? "No Question Available" : "Fetching";
-        console.log("qstn", previousQues[previousQues.length - 1]);
-        console.log("qstn len", previousQues.length - 1);
-        // const {question} = previousQues[previousQues.length - 1];
-        // console.log(question);
         return(
             
             <div className="random-que-container">
-
                 {previousQues.length > 0 ? 
+
                     <div className="qstn-container">
+
                         <div className="qstn-sectionname">
                         {/* Section > Exam-name */}
+                        
                         {previousQues[previousQues.length - 1].question.exam} &nbsp; &#62; &nbsp;
                         {previousQues[previousQues.length - 1].question.test}
                         
                         </div>
                        
                         <div className="qstn-content">
+
                             <div className="qstn-point">
-                                <span className="point-positive">
-                                    +{previousQues[previousQues.length - 1].question.questions[0].marking.correct}
-                                </span>
-                                <span className="point-negative">
-                                    {previousQues[previousQues.length - 1].question.questions[0].marking.incorrect}
-                                </span>
                                 
+                                {previousQues[previousQues.length - 1].question.questions[0].marking ? 
+                                     <><span className="align-marks">Marks: </span><span className="point-positive">
+                                        +{previousQues[previousQues.length - 1].question.questions[0].marking.correct}
+                                    </span>
+                                    <span className="point-negative">
+                                        {previousQues[previousQues.length - 1].question.questions[0].marking.incorrect}
+                                    </span></> :
+                                    <></>
+                                }
+                                    
                             </div>
+
                             <div className="qtn-heading">
                                 Question:
                             </div>
-                            {previousQues[previousQues.length - 1].question.questions.map((ele) => {
-                                {console.log("ele",ele)}
+
+                            {previousQues[previousQues.length - 1].question.context ?
+                                <> {previousQues[previousQues.length - 1].question.context} </>:
+                                <></>
                                 
-                                return <> 
-                                    
-                                    
-                                    <div className="qstn line-break">
-                                    {/* Question */}
-                                         {ele.question}
-                                    </div>
-                                    <div className="qstn-img">
-                                        {/* if img */}
-                                        {console.log("image", ele.images.length)}
-                                        {ele.images.length > 0 ? 
-                                            <>
-                                                <div>
-                                                    {ele.images.map((e)=>{
-                                                        return <>
-                                                                <img src={e} alt={e}/>
-                                                                </>
-                                                    })}
-                                                </div>
-                                            </> : 
-                                            <></>
-                                        }
-                                    </div>
-                                    <div className="qstn-optns" >
-                                        {/* Options */}
+                            }
+                            
+                            
+                            {previousQues[previousQues.length - 1].question.questions.map((ele, i) => {
+                              
+                                return <div key={i}> 
+                                        <div  className="qstn line-break">
+                                        {/* Question */}
+                                            {ele.question}
+                                        </div>
+                                        <div className="qstn-img">
+                                            {/* if img */}
                                         
-                                        {console.log("option", ele)}
-                                        {ele.mcqma ? 
-                                           <>{ele.options.map((e) => {
-                                                return <div className="qstn-optn" ><input type="checkbox" value={e.option} name="answer"/>
-                                                         &nbsp;{e.option}
-                                                        </div>
-                                                       
-                                            })}</> :
-                                            <>{ele.options.map((e) => {
-                                                return <div className="qstn-optn" ><input type="radio" value={e.option} name="answer"/>
-                                                            &nbsp;<div className="line-break">{e.option}</div>
-                                                        </div>
-                                                       
-                                            })}</>
-                                        }
-                                    </div>
-                                </>
+                                            {ele.images.length > 0 ? 
+                                                <>
+                                                    <div>
+                                                        {ele.images.map((e, i)=>{
+                                                            return <>
+                                                                    <img key={i} className="img" src={e} alt={e}/>
+                                                                    </>
+                                                        })}
+                                                    </div>
+                                                </> : 
+                                                <></>
+                                            }
+                                        </div>
+                                        <div className="qstn-optns" >
+                                            {/* Options */}
+                                            
+                                            
+                                            {ele.type == "mcq" ?
+                                                <>{ele.mcqma ? 
+                                                    <>{ele.options.map((e, i) => {
+                                                        return <div key={i} className="qstn-optn" ><input type="checkbox" value={e.option} name="answer"/>
+                                                                &nbsp;{e.option}
+                                                                </div>
+                                                                
+                                                    })}</> :
+                                                    <>{ele.options.map((e , i) => {
+                                                        return <div key={i} className="qstn-optn" ><input type="radio" value={e.option} name="answer"/>
+                                                                    &nbsp;<div className="line-break">{e.option}</div>
+                                                                </div>
+                                                                
+                                                    })}</>
+                                                } </> : 
+                                                <>{ele.options.map((e ,i) => {
+                                                    return <div key={i} className="qstn-optn"><input type="text" name="answer" placeholder="Enter your Answer"/>
+                                                            &nbsp;<button className="btn-effect">Submit</button>
+                                                            </div>
+                                                        
+                                                })}</>
+                                            }
+                                            
+                                        </div>
+                                </div>
                                
                             })}
                             
+                            <div>
+                                {previousQues[previousQues.length - 1].question.images && previousQues[previousQues.length - 1].question.images.length > 0 ? 
+                                     <>
+                                    {previousQues[previousQues.length - 1].question.images.map((e, i) => {
+                                        
+                                        return <><img key={i} className="img" src={e} alt="img"/></>
+                                    })}</> :
+                                    <></>
+                                }
+                            </div>
+
                         </div>
                         <div className="btns">
                             {/* Buttons */}
@@ -165,10 +184,10 @@ class RandomQuestion extends React.Component{
                             <div className="nxt-btn">
                                 <button className="btn-effect" onClick={this.handleNext}>Next</button>
                             </div>
+                            
                         </div> 
                     </div> :
 
-                    // <h1>{queAvailableinDB ? display : "No available question for the selected exams"}</h1>
                     <h1>{display}</h1>
                 }
 

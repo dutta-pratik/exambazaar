@@ -28,16 +28,4 @@ function Stream(props){
   
 }
 
-// class Stream extends React.Component{
-  
-//   render(){
-//     console.log("pp",this.state);
-//     return(
-//       <div>
-
-//       </div>
-//     );
-//   }
-// }
-
 export default Stream;
