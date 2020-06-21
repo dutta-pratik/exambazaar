@@ -1,14 +1,16 @@
+/*******************IMPORTING FILES AND PACKAGES**********************/
 import React from "react";
-
 import ExamLogo from "../exams.svg"
 import Stream from "./Stream";
 import Exam from "./Exam";
 import {Link} from "react-router-dom";
 
-
+/*******************HOMEPAGE FUNCTIONAL COMPONENT**********************/
 const HomePage = (props) => {
+    /*******************OBJECT DESTRUCTURING**********************/
     const {selectedExam, stream, handleStream, exam, handleExam, selectedStream} = props;
     return(
+        /*******************RETURNING COMPONENT**********************/
         <div>
             <img className="img exam-logo" src={ExamLogo} alt="img"></img>
             <Stream streams={stream} onStreamChange={handleStream}/>
@@ -26,5 +28,5 @@ const HomePage = (props) => {
         </div>
     );
 }
-
+ /*******************EXPORTING HOMEPAGE COMPONENT**********************/
 export default HomePage;

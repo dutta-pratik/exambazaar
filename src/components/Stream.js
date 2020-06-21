@@ -1,17 +1,15 @@
-
+/*******************IMPORTING FILES AND PACKAGES**********************/
 import React from 'react';
 import "../App.css";
 
+/*******************STREAM FUNCTIONAL COMPONENT**********************/
 function Stream(props){
-  console.log("stream props",props);
+  /*******************OBJECT DESTRUCTURING**********************/
   const {streams, onStreamChange} = props;
-  console.log("strem", streams);
-  console.log("onStreamChange", onStreamChange);
   
-
   return (
+    /*******************RETURNING COMPONENT**********************/
     <div className="stream" >
-      {console.log("here", streams)}
       Stream: &nbsp;
       <select onClick={onStreamChange}>
         {streams != null ?
@@ -28,4 +26,5 @@ function Stream(props){
   
 }
 
+ /*******************EXPORTING STREAM COMPONENT**********************/
 export default Stream;

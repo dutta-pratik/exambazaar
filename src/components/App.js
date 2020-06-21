@@ -1,7 +1,7 @@
+/*******************IMPORTING FILES AND PACKAGES**********************/
 import React from 'react';
-import '../App.css';
 import {BrowserRouter as Router, Link, Route} from "react-router-dom";
-
+import '../App.css';
 import apiData from "../api_info/api";
 import Stream from "./Stream";
 import Exam from "./Exam"
@@ -9,6 +9,8 @@ import NavBar from "./NavBar";
 import RandomQuestion from "./RandomQuestion";
 import HomePage from "./HomePage";
 
+
+/*******************APP CLASS COMPONENT**********************/
 class App extends React.Component{
   constructor(){
     super();
@@ -22,6 +24,7 @@ class App extends React.Component{
     }
   }
 
+  /*******************COMPONENTDIDMOUNT FUNCTION**********************/
   async componentDidMount(){
     const url = `https://www.exambazaar.com/api/coding-round/routes/exam-info/${apiData.API_KEY}`;
 
@@ -38,6 +41,7 @@ class App extends React.Component{
     
   }
 
+  /*******************FUNCTION TO HANDLE STREAM DROPDOWN**********************/
   handleStream = (e) => {
     
     const {allData} = this.state;
@@ -53,8 +57,9 @@ class App extends React.Component{
     
   }
 
+
+   /*******************FUNCTION TO HANDLE EXAM DROPDOWN**********************/
   handleExam = (e) => {
-    console.log("exam id", e.target.value);
     this.setState({
       ...this.state,
       selectedExam: e.target.value
@@ -62,11 +67,13 @@ class App extends React.Component{
     
   }
 
-
+ /*******************RENDER FUNCTION**********************/
   render(){
+     /*******************OBJECT DESTRUCTURING**********************/
     const {exam, stream, selectedStream, selectedExam, homePage} = this.state;
 
     return (
+       /*******************RETURNING COMPONENT**********************/
       <div className="App">
        
         <Router>
@@ -87,6 +94,6 @@ class App extends React.Component{
   }
 }
 
-
+ /*******************EXPORTING APP COMPONENT**********************/
 export default App;
 

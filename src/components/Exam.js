@@ -1,10 +1,13 @@
+/*******************IMPORTING FILES AND PACKAGES**********************/
 import React from "react";
 import "../App.css";
 
+/*******************EXAM FUNCTIONAL COMPONENT**********************/
 function Exam(props){
-    console.log("Exam Props", props);
+    /*******************OBJECT DESTRUCTURING**********************/
     const {exams, onExamChange} = props;
     return(
+        /*******************RETURNING COMPONENT**********************/
         <div className="exam">
             Exam: &nbsp;
             <select onClick={onExamChange}>
@@ -15,5 +18,5 @@ function Exam(props){
         </div>
     );
 }
-
+ /*******************EXPORTING EXAM COMPONENT**********************/
 export default Exam;
