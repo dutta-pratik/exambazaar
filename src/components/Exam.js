@@ -10,7 +10,7 @@ function Exam(props){
         /*******************RETURNING COMPONENT**********************/
         <div className="exam">
             Exam: &nbsp;
-            <select onClick={onExamChange}>
+            <select onChange={onExamChange}>
                 {exams.map((ele) => {
                     return <option key={ele._id} value={ele._id}>{ele.name}</option>
                 })}

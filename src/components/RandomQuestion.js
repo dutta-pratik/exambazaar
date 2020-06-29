@@ -54,6 +54,7 @@ class RandomQuestion extends React.Component{
     async componentDidMount(){
         
         const { match: { params } } = await this.props;
+        console.log("pp", {match: { params }});
         await this.setState({
             ...this.state,
             examId: params.examId
@@ -85,7 +86,6 @@ class RandomQuestion extends React.Component{
         /*******************OBJECT DESTRUCTURING**********************/
         const {previousQues, prev, queAvailableinDB} = this.state;
         const display = prev  ? "No Question Available" : "Fetching...";
-        
         return(
              /*******************RETURNING COMPONENT**********************/
             <div className="random-que-container">

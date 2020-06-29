@@ -28,7 +28,6 @@ class App extends React.Component{
 
     const response = await fetch(url);
     const jsonResponse =  await response.json();
-
     if(jsonResponse.status === 200){
       
       this.setState({
@@ -74,9 +73,9 @@ class App extends React.Component{
        /*******************RETURNING COMPONENT**********************/
       <div className="App">
        
-        <Router>
+        
           <NavBar/>
-
+        <Router>
           <div className="container">
             
             <Route exact={true} path="/" render={() => {

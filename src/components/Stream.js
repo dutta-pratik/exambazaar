@@ -11,7 +11,7 @@ function Stream(props){
     /*******************RETURNING COMPONENT**********************/
     <div className="stream" >
       Stream: &nbsp;
-      <select onClick={onStreamChange}>
+      <select onChange={onStreamChange}>
         {streams != null ?
           
           streams.map((ele) => {
